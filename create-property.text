@@ -1,0 +1,256 @@
+{{-- <div class="container-fluid card">
+    <div class="card-header" style="padding-bottom: 5px">
+        <h5>Resort</h5>
+    </div>
+    <form action="{{ route('resorts.store') }}" method="POST">
+@csrf
+<div class="card-body row">
+    <div class="col">
+        <div class="form-group">
+            <label for="name">Resort Name <span style="color: red">*</span></label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" placeholder="Resort Name" value="{{ old('name') }}" autofocus>
+            </div>
+        </div>
+        @error('name')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+        @enderror
+        <div class="form-group mt-2">
+            <label for="name">Resort Type <span style="color: red">*</span></label>
+            <select name="property_type_id" class="form-select" id="resort_type">
+                <option value="" disabled selected>Select Resort Type</option>
+                @foreach ($types as $type)
+                <option value="{{ $type->id }}" @selected(old('property_type_id')==$type->id)>
+                    {{ $type->name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="price">Resort Price <span style="color: red">*</span></label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="price" placeholder="Resort Price" value="{{ old('price') }}" autofocus>
+            </div>
+            @error('price')
+            <div class="text-danger">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="form-group mt-2">
+            <label for="name">Type<span style="color: red">*</span></label>
+            <select name="type" class="form-control select2" id="type">
+                <option value="" disabled selected>Select Type</option>
+                <option value="1" {{ old('type') == '1' ? 'selected' : '' }}>Private</option>
+                <option value="2" {{ old('type') == '2' ? 'selected' : '' }}>Public</option>
+            </select>
+            <input type="checkbox" name="" style="margin-top: 5px" id="checked" {{ old('visibility') ? 'checked' : '' }}>
+            <input type="hidden" name="visibility" id="visibilityValueInput" value="{{ old('visibility') ? 1 : 0 }}">
+            <span style="font-size: 12px">Has 12 hours cancelation policy?</span>
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <label for="description">Resort Description<span style="color: red">*</span></label>
+        <textarea name="description" class="form-control" id="" cols="15" rows="5" placeholder="Resort Description">{{ old('description') }}</textarea>
+    </div>
+    <div class="mt-3 form-group">
+        <label>Featured Images/Videos</label>
+        <div class="input-group">
+            <input type="file" class="form-control" id="images" name="fMedia">
+        </div>
+    </div>
+    @error('fMedia')
+    <div class="text-danger">
+        {{ $message }}
+    </div>
+    @enderror
+    <div class="mt-5">
+        <h5>Add Location</h5>
+        <div class="form-group">
+            <label for="">Location Details</label>
+            <div class="input-group">
+                <input type="text" name="loc_details" placeholder="Enter Location" class="form-control" value="{{ old('loc_details') }}">
+            </div>
+        </div>
+        @error('loc_details')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+        @enderror
+        <div class="row mt-3">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Street Number</label>
+                    <div class="input-group">
+                        <input type="text" name="street_number" placeholder="Street Number" class="form-control" value="{{ old('street_number') }}">
+                    </div>
+                </div>
+                @error('street_number')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="form-group mt-2">
+                    <label for="">Barangay District</label>
+                    <div class="input-group">
+                        <input type="text" name="barangay_district" placeholder="Barangay District" class="form-control" value="{{ old('barangay_district') }}">
+                    </div>
+                </div>
+                @error('barangay_district')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Postal Code</label>
+                    <div class="input-group">
+                        <input type="text" name="postal_code" placeholder="Postal Code" class="form-control" value="{{ old('postal_code') }}">
+                    </div>
+                </div>
+                @error('postal_code')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="form-group mt-2">
+                    <label for="">Street Name</label>
+                    <div class="input-group">
+                        <input type="text" name="street_name" placeholder="Street Name" class="form-control" value="{{ old('street_name') }}">
+                    </div>
+                </div>
+                @error('street_name')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group mt-2">
+                <label for="">Location Description</label>
+                <textarea id="" cols="30" rows="4" class="form-control" name="loc_description" placeholder="Location Description">{{ old('loc_description') }}</textarea>
+            </div>
+            @error('loc_description')
+            <div class="text-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="row mt-5">
+                <h5>Add Sub-Host</h5>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">Sub-host Name</label>
+                        <div class="input-group">
+                            <input type="text" name="subhost_name" class="form-control" placeholder="Sub-host Name" value="{{ old('subhost_name') }}">
+                        </div>
+                    </div>
+                    @error('subhost_name')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="form-group mt-2">
+                        <label for="">Sub-host Email</label>
+                        <div class="input-group">
+                            <input type="text" name="subhost_email" class="form-control" placeholder="Sub-host subhost_email" value="{{ old('subhost_email') }}">
+                        </div>
+                    </div>
+                    @error('subhost_email')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">Sub-host Phone Number</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="subhost_phone_number" placeholder="Sub-host Phone Number" value="{{ old('subhost_phone_number') }}">
+                        </div>
+                    </div>
+                    @error('subhost_phone_number')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="form-group mt-2">
+                        <label for="">Sub-host Password</label>
+                        <div class="input-group">
+                            <input type="password" name="subhost_password" class="form-control" placeholder="Sub-host Password">
+                        </div>
+                    </div>
+                    @error('subhost_password')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+
+
+            --}}
+
+            {{-- <div class="card-body shadow-lg mt-5">
+                        <div class="mt-3 row">
+                            <div class="col text-start">
+                                <h5>Room(s)</h5>
+                            </div>
+                        </div>
+
+                        <div class="" id="rooms"></div>
+                        <div class="text-end mt-3">
+                            <button class="btn btn-primary" id="addRoom" type="button">Add Room</button>
+                        </div>
+                    </div>
+                    <div class="card-body shadow-lg mt-3">
+                        <div class="mt-3 row">
+                            <div class="col text-start">
+                                <h5>Amenities</h5>
+                            </div>
+                        </div>
+                        <div class="" id="amenities"></div>
+                        <div class="text-end mt-3">
+                            <button class="btn btn-primary" id="addAmenities" type="button">Add Amenity</button>
+                        </div>
+                    </div>
+                    --}}
+            {{-- <div class="card-body shadow-lg mt-3" x-data="addOnsHandler()">
+                        <div class="mt-3 row">
+                            <div class="col text-start">
+                                <h5>Addons</h5>
+                            </div>
+                        </div>
+                        <div>
+                            <template x-for="(field, index) in addOns" :key="index">
+                                <div class="mt-3 row appended-addons">
+                                    <h5>Addon</h5>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="">Name</label>
+                                            <input type="text" :name="`addOn[${index}][name]`" class="form-control" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="">Price</label>
+                                            <input type="text" :name="`addOn[${index}][price]`" class="form-control" placeholder="Price">
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div> --}}
+            {{-- <div class="col text-end mt-3">
+                            <button class="btn btn-primary" id="addon" type="button" @click="addAddOns">New Addons</button>
+                        </div> --}}
+            {{-- </div>
+            </div>
+            <div class="mt-5">
+                <button class="btn btn-primary" style="float: right" type="submit">Create Resort</button>
+            </div>
+        </div>
+</div>
+</form> --}}

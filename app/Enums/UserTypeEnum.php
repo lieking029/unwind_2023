@@ -13,4 +13,6 @@ final class UserTypeEnum extends Enum
 {
     const Admin = 'admin';
     const Merchant = 'merchant';
+    const Client = 'client';
+    const SubHost = 'subHost';
 }

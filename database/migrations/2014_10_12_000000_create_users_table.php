@@ -13,10 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fullname');
+            $table->string('phone_number');
+            $table->date('dob')->nullable();
+            $table->string('otp')->nullable()->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('my_referral_code')->nullable()->unique();
+            $table->string('referral_code_used')->nullable();
+            $table->unsignedBigInteger('merchant_id')->nullable();
+            $table->foreign('merchant_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('password');
+            $table->foreignId('referred_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

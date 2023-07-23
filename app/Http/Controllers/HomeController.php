@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Enums\UserTypeEnum;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $clients = User::role(UserTypeEnum::Client)->with('roles')->count();
+
+        $merchants = User::role(UserTypeEnum::Merchant)->with('roles')->count();
+
+        return view('home', compact('clients', 'merchants'));
     }
 }

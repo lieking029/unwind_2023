@@ -122,6 +122,13 @@ class CreatePermissionTables extends Migration
 
             Role::create(['name' => UserTypeEnum::Admin]);
             Role::create(['name' => UserTypeEnum::Merchant]);
+            Role::create(['name' => UserTypeEnum::Client]);
+            Role::create(['name' => UserTypeEnum::SubHost]);
+
+
+        // $permissions = [
+        //     ''
+        // ]
     }
 
     /**
