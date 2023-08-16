@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserTypeEnum;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,6 +28,7 @@ class User extends Authenticatable
         'dob',
         'my_referral_code',
         'referral_code_used',
+        'is_verified',
         'email',
         'merchant_id',
         'password',
@@ -54,6 +55,20 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function associatedResorts(): BelongsToMany
+    {
+        return $this->belongsToMany(Resort::class, 'user_resort'); // using the pivot table resort_user
+    }
+
+    public function resorts(): HasMany
+    {
+        return $this->hasMany(Resort::class);
+    }
+
+    public function oneTimePasswords(): HasMany {
+        return $this->hasMany(OneTimePassword::class);
+    }
+
 
     public function isAdmin()
     {
@@ -74,13 +89,4 @@ class User extends Authenticatable
         return $this->hasRole(UserTypeEnum::SubHost);
     }
 
-    public function associatedResorts(): BelongsToMany
-    {
-        return $this->belongsToMany(Resort::class, 'user_resort'); // using the pivot table resort_user
-    }
-
-    public function resorts(): HasMany
-    {
-        return $this->hasMany(Resort::class);
-    }
 }
