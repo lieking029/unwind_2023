@@ -4,12 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserTypeEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -54,24 +55,32 @@ class User extends Authenticatable
     ];
 
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->hasRole(UserTypeEnum::Admin);
     }
 
-    public function isMerchant() {
+    public function isMerchant()
+    {
         return $this->hasRole(UserTypeEnum::Merchant);
     }
 
-    public function isClient() {
+    public function isClient()
+    {
         return $this->hasRole(UserTypeEnum::Client);
     }
-    public function isSubHost() {
+    public function isSubHost()
+    {
         return $this->hasRole(UserTypeEnum::SubHost);
     }
 
-    public function resorts() : BelongsToMany
+    public function associatedResorts(): BelongsToMany
     {
-        return $this->belongsToMany(Resort::class);
+        return $this->belongsToMany(Resort::class, 'user_resort'); // using the pivot table resort_user
     }
 
+    public function resorts(): HasMany
+    {
+        return $this->hasMany(Resort::class);
+    }
 }

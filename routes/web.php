@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ResortController;
+use App\Http\Controllers\Web\UploadController;
+use App\Http\Controllers\Web\Merchant\RoomController;
+use App\Http\Controllers\Web\Merchant\AddonController;
+use App\Http\Controllers\Web\Merchant\ResortController;
+use App\Http\Controllers\Web\Merchant\AmenityController;
+use App\Http\Controllers\Web\Merchant\SubhostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,33 +33,46 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
 
-    // Users
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::get('merchants', [UserController::class, 'merchant'])->name('users.merchant');
+        // Users
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
+        Route::get('merchants', [UserController::class, 'merchant'])->name('users.merchant');
 
-    Route::get('transaction', function() {
-        return view('admin.transaction.index');
-    });
+        Route::get('transaction', function () {
+            return view('admin.transaction.index');
+        });
 
     });
 
     Route::middleware('role:merchant')->group(function () {
 
 
-        // SubHost
-        Route::get('sub-host', [UserController::class, 'subHost'])->name('users.subHost');
-        Route::post('sub-host', [UserController::class, 'storeSubHost'])->name('users.storeSubHost');
-        Route::get('sub-host/{id}', [UserController::class, 'showSubHost'])->name('users.showSubHost');
+        // RESOURCES
+        Route::resource('amenity', AmenityController::class);
+        Route::resource('addon', AddonController::class);
+        Route::resource('resort', ResortController::class);
+        Route::resource('subhost', SubhostController::class)
+            ->parameters(['subhost' => 'user'])
+            ->only('index', 'store', 'show', 'update', 'destroy');
 
-        Route::get('bookings', function() {
+        // Users
+        Route::resource('user', UserController::class)->only('destroy');
+
+        //Room
+        Route::get('room/{room}/destroy', [RoomController::class, 'destroy'])->name('room.destroy');
+        Route::get('room/create/{id}', [RoomController::class, 'create'])->name('room.create');
+        Route::post('room/{resort}', [RoomController::class, 'store'])->name('room.store');
+        Route::get('room/{resort}', [RoomController::class, 'edit'])->name('room.edit');
+        Route::post('room/{resort}/update', [RoomController::class, 'update'])->name('room.update');
+
+        Route::get('bookings', function () {
             return view('merchant.booking.index');
         });
 
-        Route::resource('resorts', ResortController::class)
-                ->only('index', 'create', 'store');
+
 
     });
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/upload', UploadController::class)->name('upload');
 });

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Addon;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AddonSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class AddonSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Addon::factory(30)->create();
     }
 }

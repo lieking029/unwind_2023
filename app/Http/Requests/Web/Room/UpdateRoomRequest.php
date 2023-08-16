@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Web\Room;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
-class StoreSubHostRequest extends FormRequest
+class UpdateRoomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +23,12 @@ class StoreSubHostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fullname' => 'required|max:255|string',
-            'email' => 'required|max:255|string|email',
-            'phone_number' => 'required|numeric',
-            'dob' => 'required|required|date|before:2004-01-01',
-            'password' => 'required|min:8|confirmed',
+            'rooms' => 'required|array',
+            'rooms. * .max_guest_count' => 'required|numeric',
+            'rooms. * .room_image' => ['nullable', File::image()],
+            'rooms. * .bed_count' => 'required|numeric',
+            'rooms. * .bath_count' => 'required|numeric',
+            'rooms. * .price' => 'required',
         ];
     }
 }

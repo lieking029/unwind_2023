@@ -15,8 +15,9 @@ return new class extends Migration
         Schema::create('resorts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('price');
-            $table->string('fMedia')->nullable();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->decimal('price', 15, 2);
+            $table->string('featured_media')->nullable();
             $table->foreignId('property_type_id')->constrained()->cascadeOnDelete();
             $table->integer('visibility')->default(ResortVisibilityEnum::Private);
             $table->boolean('has_12_hours_cancellation_policy')->default(false);

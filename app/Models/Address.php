@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Location extends Model
+class Address extends Model
 {
     protected $fillable = [
+        'resort_id',
         'property_id',
         'loc_details',
         'street_number',
         'postal_code',
         'barangay_district',
         'street_name',
-        'loc_description',
+        'location_description',
     ];
 
     use HasFactory;

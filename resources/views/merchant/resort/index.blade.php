@@ -8,21 +8,18 @@
             <h5>Resorts</h5>
         </div>
         <div class="col text-end">
-            <a href="{{ route('resorts.create') }}" class="btn btn-primary">Add Resort</a>
+            <a href="{{ route('resort.create') }}" class="btn btn-primary">Add Resort</a>
         </div>
     </div>
-    <div class="card-body table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Property</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="card-body">
+        <div class="table-responsive">
+            {{ $dataTable->table() }}
+        </div>
     </div>
 </div>
 
 @endsection
+
+@push('scripts')
+{{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

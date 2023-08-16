@@ -16,7 +16,8 @@ class Room extends Model
         'max_guest_count',
         'bed_count',
         'bath_count',
-        'price'
+        'price',
+        'room_image'
     ];
 
     use HasFactory, SoftDeletes;

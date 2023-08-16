@@ -45,7 +45,7 @@ class SubHostDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('subhost_table')
+                ->setTableId('subhost_table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
