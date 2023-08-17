@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'resort_id',
@@ -19,8 +20,6 @@ class Room extends Model
         'price',
         'room_image'
     ];
-
-    use HasFactory, SoftDeletes;
 
     public function resort() : BelongsTo
     {

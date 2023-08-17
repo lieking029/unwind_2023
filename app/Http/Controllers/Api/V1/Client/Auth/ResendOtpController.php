@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Services\SmsService;
 
 class ResendOtpController extends Controller
 {
@@ -21,6 +22,8 @@ class ResendOtpController extends Controller
         }
         
         auth()->user()->oneTimePasswords()->create(['otp' => $otp, 'expires_at' => now()->addMinutes(5)]);
+        SmsService::sendVerificationOTP(phoneNumber: auth()->user()->phone_number, otp: $otp);
+        
         return response()->json([
             'message' => 'Resend Otp sucessfully',
         ], Response::HTTP_OK);

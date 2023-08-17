@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Client;
+namespace App\Http\Requests\Api\V1\Shared;
 
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSocialLoginRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -22,12 +23,8 @@ class StoreSocialLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'social_id' => ['required', 'string'],
-            'social_type' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'fullname' => ['required', 'string'],
-            'picture' => ['required', 'active_url'],
-            'dob' => ['nullable', 'date'],
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'confirmed', Password::min(8)->uncompromised()]
         ];
     }
 }

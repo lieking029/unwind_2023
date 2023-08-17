@@ -9,8 +9,10 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -22,13 +24,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'fullname',
         'phone_number',
         'dob',
         'my_referral_code',
         'referral_code_used',
         'is_verified',
+        'avatar',
         'email',
         'merchant_id',
         'password',
@@ -69,6 +71,13 @@ class User extends Authenticatable
         return $this->hasMany(OneTimePassword::class);
     }
 
+    public function address(): HasOne {
+        return $this->hasOnne(Address::class);
+    }
+
+    public function wishlists(): HasMany {
+        return $this->hasMany(Wishlist::class);
+    }
 
     public function isAdmin()
     {

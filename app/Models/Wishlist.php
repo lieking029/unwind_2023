@@ -7,22 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Address extends Model
+class Wishlist extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'home_address',
-        'barangay',
-        'city',
-        'region',
-        'country',
-        'user_id'
+        'user_id',
+        'resort_id',
     ];
 
-
-    public function resort() : BelongsTo
-    {
+    public function user(): BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function resort(): BelongsTo {
+        return $this->belongsTo(Resort::class);
     }
 }

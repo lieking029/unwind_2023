@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PropertyType extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'name'
     ];
-
-    use HasFactory;
 
     public function resort() : HasOne
     {
