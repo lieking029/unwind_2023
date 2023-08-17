@@ -3,20 +3,22 @@
 namespace App\Models;
 
 use App\Models\Room;
-use App\Models\Amenity;
 use App\Models\Address;
+use App\Models\Amenity;
+use Spatie\MediaLibrary\HasMedia;
 use App\Enums\ResortVisibilityEnum;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Resort extends Model
+class Resort extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -28,6 +30,7 @@ class Resort extends Model
         'featured_media',
         'user_id'
     ];
+
 
     protected $casts = [
         'visibility' => ResortVisibilityEnum::class,

@@ -20,7 +20,7 @@ class UploadController extends Controller
             $folder = uniqid() . '-' . now()->timestamp;
             $file->storeAs('temporary/' . $folder, $fileName);
 
-            // TemporaryFiles::create(['folder' => $folder, 'file_name' => $fileName]);
+            TemporaryFiles::create(['folder' => $folder, 'file_name' => $fileName]);
 
             return response()->json($folder, Response::HTTP_CREATED);
         }

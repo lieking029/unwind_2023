@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('temporary_files', function (Blueprint $table) {
             $table->id();
-            $table->string('folders');
+            $table->string('folder');
             $table->string('file_name');
             $table->timestamps();
         });

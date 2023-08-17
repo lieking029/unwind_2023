@@ -116,19 +116,26 @@ class ResortController extends Controller
 
     private function setResortMedia(?array $attachments, Resort $resort)
     {
-        if($attachments == null) {
+        if ($attachments == null) {
             return;
         }
 
         foreach ($attachments as $attachment) {
-            // used str replace because of json response wrapped the actual string with "file.png" and will be received by the server as
-            // ""file.png"" and will cause an error
-            $file = TemporaryFiles::where('folder', str_replace('"', '', $attachment))->first();
-            $resort->addMedia(storage_path('app/temporary/' . $file->folder . '/' . $file->file_name))
-                ->toMediaCollection('attachments', 'news_fs');
-            rmdir(storage_path('app/temporary/' . $file->folder));
-        }
+            // Remove any additional quotes around the attachment string
+            $attachment = trim($attachment, '"');
 
+            $file = TemporaryFiles::where('folder', $attachment)->first();
+            if ($file) {
+                $filePath = storage_path('app/temporary/' . $file->folder . '/' . $file->file_name);
+
+                if (file_exists($filePath)) {
+                    $resort->addMedia($filePath)->toMediaCollection('featured_media');
+                    rmdir(storage_path('app/temporary/' . $file->folder));
+                }
+            } else {
+                return redirect()->back();
+            }
+        }
     }
 
 }

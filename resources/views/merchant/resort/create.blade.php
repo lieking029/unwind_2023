@@ -42,7 +42,7 @@
         <h3>RESORT</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('resort.store') }}" method="POST">
+        <form action="{{ route('resort.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="p-3">
@@ -116,10 +116,10 @@
                 <div class="mt-3 form-group">
                     <label>Featured Images/Videos</label>
                     <div class="input-group">
-                        <input type="file" class="form-control filepond" id="attachments_create" name="fMedia">
+                        <input type="file" class="form-control filepond" id="attachments_create" name="featured_media[]" multiple>
                     </div>
                 </div>
-                @error('fMedia')
+                @error('featured_media')
                 <small class="text-danger">
                     {{ $message }}
                 </small>
@@ -278,10 +278,39 @@
         FilePond.create(document.getElementById('attachments_create'));
 
         FilePond.setOptions({
-                server: {
+            server: {
                     url: '/upload',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                        const formData = new FormData();
+                        formData.append('featured_media', file, file.name);
+
+                        const request = new XMLHttpRequest();
+                        request.open('POST', '/upload');
+                        request.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+                        request.upload.onprogress = (e) => {
+                            progress(e.lengthComputable, e.loaded, e.total);
+                        };
+
+
+                        request.onload = function () {
+                            if (request.status >= 200 && request.status < 300) {
+                                load(request.responseText);
+                            } else {
+                                error('oh no');
+                            }
+                        };
+
+                        request.send(formData);
+                        return {
+                            abort: () => {
+                                request.abort();
+                                abort();
+                            },
+                        };
                     },
                 },
             })
