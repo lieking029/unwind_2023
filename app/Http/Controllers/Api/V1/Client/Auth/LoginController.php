@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Api\V1\LoginRequest;
+use App\Http\Requests\Api\V1\Shared\LoginRequest;
 use App\Http\Resources\Api\V1\User\UserResource;
 use Illuminate\Http\JsonResponse;
 

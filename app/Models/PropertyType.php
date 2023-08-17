@@ -18,5 +18,4 @@ class PropertyType extends Model
     {
         return $this->hasOne(Resort::class);
     }
-
 }

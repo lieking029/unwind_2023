@@ -17,9 +17,9 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fullname' => $this->fullname,
-            'dob' => $this->dob,
-            'is_verified' => $this->is_verified,
+            'fullName' => $this->fullname,
+            'dateOfBirth' => $this->dob,
+            'isVerified' => $this->is_verified,
             'email' => $this->email,
             'referralCode' => $this->my_referral_code,
             'address' => AddressResource::make($this->whenLoaded('address')),
