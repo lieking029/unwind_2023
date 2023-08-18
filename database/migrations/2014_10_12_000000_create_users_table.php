@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('otp')->nullable()->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('avatar')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->string('my_referral_code')->nullable()->unique();
             $table->string('referral_code_used')->nullable();

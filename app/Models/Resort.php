@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Models\Room;
+use App\Models\Trip;
 use App\Models\Address;
 use App\Models\Amenity;
+use App\Models\Feedback;
 use Spatie\MediaLibrary\HasMedia;
 use App\Enums\ResortVisibilityEnum;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Resort extends Model implements HasMedia
 {
@@ -69,5 +72,18 @@ class Resort extends Model implements HasMedia
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transactions(): HasMany {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function location() : HasOne
+    {
+        return $this->hasOne(Location::class);
+    }
+
+    public function feedbacks(): HasManyThrough {
+        return $this->hasManyThrough(Feedback::class, Trip::class);
     }
 }

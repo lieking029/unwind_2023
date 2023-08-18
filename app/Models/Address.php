@@ -5,25 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
-        'resort_id',
-        'property_id',
-        'loc_details',
-        'street_number',
-        'postal_code',
-        'barangay_district',
-        'street_name',
-        'location_description',
+        'home_address',
+        'barangay',
+        'city',
+        'region',
+        'country',
+        'user_id'
     ];
 
-    use HasFactory;
 
     public function resort() : BelongsTo
     {
-        return $this->belongsTo(Resort::class);
+        return $this->belongsTo(User::class);
     }
-
 }

@@ -58,7 +58,13 @@ class ResortController extends Controller
 
         $resort->addons()->attach($request->input('addons'));
 
-        $resort->address()->create($request->only('street_number', 'location_description', 'street_name', 'postal_code', 'barangay_district'));
+        $resort->location()->create([
+            'street_number' => $request->street_number,
+            'description' => $request->location_description,
+            'street_name' => $request->street_name,
+            'postal_code' => $request->postal_code,
+            'barangay_district' => $request->barangay_district
+        ]);
 
         return redirect()->route('room.create', $resort->id);
     }
@@ -113,6 +119,10 @@ class ResortController extends Controller
         $resort->delete();
         return redirect()->back();
     }
+
+    /**
+     *  Private function for featured_media upload
+     */
 
     private function setResortMedia(?array $attachments, Resort $resort)
     {

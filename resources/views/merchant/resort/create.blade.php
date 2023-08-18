@@ -2,9 +2,9 @@
 
 @push('styles')
 <style>
-    span .selection {
+    /* span .selection {
         width: 100%;
-    }
+    } */
 
     /* .select2-container--default {
         width: 100%;
@@ -126,57 +126,77 @@
                 @enderror
             </div>
 
-            <div class="row mt-4">
+            <div class=" mt-4">
                 <div class="p-3">
                     <h5>LOCATION DETAILS</h5>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="">Street Number</label>
-                        <div class="input-group">
-                            <input type="text" name="street_number" placeholder="Street Number" class="form-control" value="{{ old('street_number') }}">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Country</label>
+                            <select name="country" id="" class="form-select select2">
+                                <option value="" selected disabled>Select Country</option>
+                            </select>
                         </div>
-                    </div>
-                    @error('street_number')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    <div class="form-group mt-2">
-                        <label for="">Barangay District</label>
-                        <div class="input-group">
-                            <input type="text" name="barangay_district" placeholder="Barangay District" class="form-control" value="{{ old('barangay_district') }}">
+                        @error('country')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        <div class="form-group mt-2">
+                            <label for="">Street Number</label>
+                            <div class="input-group">
+                                <input type="text" name="street_number" placeholder="Street Number" class="form-control" value="{{ old('street_number') }}">
+                            </div>
                         </div>
-                    </div>
-                    @error('barangay_district')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="">Postal Code</label>
-                        <div class="input-group">
-                            <input type="text" name="postal_code" placeholder="Postal Code" class="form-control" value="{{ old('postal_code') }}">
+                        @error('street_number')
+                        <div class="text-danger">
+                            {{ $message }}
                         </div>
-                    </div>
-                    @error('postal_code')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    <div class="form-group mt-2">
-                        <label for="">Street Name</label>
-                        <div class="input-group">
-                            <input type="text" name="street_name" placeholder="Street Name" class="form-control" value="{{ old('street_name') }}">
+                        @enderror
+                        <div class="form-group mt-2">
+                            <label for="">Barangay District</label>
+                            <div class="input-group">
+                                <input type="text" name="barangay_district" placeholder="Barangay District" class="form-control" value="{{ old('barangay_district') }}">
+                            </div>
                         </div>
+                        @error('barangay_district')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
-                    @error('street_name')
-                    <div class="text-danger">
-                        {{ $message }}
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Region</label>
+                            <select name="region" id="" class="form-select select2">
+                                <option value="" selected disabled>Select Region</option>
+                            </select>
+                        </div>
+                        @error('region')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        <div class="form-group mt-2">
+                            <label for="">Postal Code</label>
+                            <div class="input-group">
+                                <input type="text" name="postal_code" placeholder="Postal Code" class="form-control" value="{{ old('postal_code') }}">
+                            </div>
+                        </div>
+                        @error('postal_code')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        <div class="form-group mt-2">
+                            <label for="">Street Name</label>
+                            <div class="input-group">
+                                <input type="text" name="street_name" placeholder="Street Name" class="form-control" value="{{ old('street_name') }}">
+                            </div>
+                        </div>
+                        @error('street_name')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
-                    @enderror
                 </div>
                 <div class="form-group mt-2">
                     <label for="">Location Description</label>

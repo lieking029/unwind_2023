@@ -39,7 +39,9 @@ class StoreResortRequest extends FormRequest
             'barangay_district' => 'required|string|max:255',
             'postal_code' => 'required|numeric',
             'street_name' => 'nullable|string|max:255',
-            'location_description' => 'required|max:255|string'
+            'location_description' => 'required|max:255|string',
+            'country' => 'required',
+            'region' => 'required'
         ];
     }
 }
