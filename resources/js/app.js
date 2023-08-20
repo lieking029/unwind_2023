@@ -1,5 +1,6 @@
 import './bootstrap';
 import 'laravel-datatables-vite';
+import 'select2'
 import "simplebar";
 import SmoothScroll from "smooth-scroll";
 

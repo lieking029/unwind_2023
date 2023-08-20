@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Merchant;
 
 use App\Http\Requests\Web\Resort\UpdateResortRequest;
+use App\Models\Region;
 use App\Models\TemporaryFiles;
 use App\Models\User;
 use App\Models\Addon;
@@ -36,6 +37,7 @@ class ResortController extends Controller
         $data['subHosts'] = User::where('merchant_id', auth()->id())->get();
         $data['amenities'] = Amenity::owned()->get();
         $data['addons'] = Addon::owned()->get();
+        $data['regions'] = Region::all();
 
         return view('merchant.resort.create', compact('data'));
     }
