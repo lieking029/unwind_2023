@@ -2,14 +2,6 @@
 
 @push('styles')
     <style>
-        /* span .selection {
-                                        width: 100%;
-                                    } */
-
-        /* .select2-container--default {
-                                        width: 100%;
-                                    } */
-
         .select2-selection__rendered {
             line-height: 34px !important;
         }
@@ -141,13 +133,14 @@
                             <div class="form-group">
                                 <label for="">Latitude</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
+                                    <input type="text" class="form-control" name="latitude" id="latitude"
+                                        placeholder="Latitude">
                                 </div>
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Country</label>
                                 <select name="country" id="" class="form-select select2">
-                                    <option value="" selected disabled>Select Country</option>
+                                    <option value="ph" disabled selected>Philippines</option>
                                 </select>
                             </div>
                             @error('country')
@@ -182,13 +175,17 @@
                             <div class="form-group">
                                 <label for="">Longitude</label>
                                 <div class="input-group">
-                                <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
+                                    <input type="text" class="form-control" name="longitude" id="longitude"
+                                        placeholder="Longitude">
                                 </div>
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Region</label>
                                 <select name="region" id="" class="form-select select2">
                                     <option value="" selected disabled>Select Region</option>
+                                    @foreach ($data['regions'] as $region)
+                                        <option value="{{ $region->id }}">{{ $region->description }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             @error('region')
@@ -337,66 +334,68 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCubCTZ2gOZAqKfl_pnhwgPrzUW1cnJ5jI&callback=initMap"
         type="module"></script>
     <script>
-        async function initMap(mapId) {
-            const {Map} = await google.maps.importLibrary("maps");
-            return new Map(document.getElementById("map"), {
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
                 center: {
                     lat: 13.4125,
                     lng: 122.5650
                 },
                 zoom: 8,
             });
+
+            const latitudeElement = $('#latitude');
+            const longitudeElement = $('#longitude');
+            let marker = null;
+
+            map.addListener('click', function(event) {
+                if (marker !== null) {
+                    marker.setMap(null);
+                }
+
+                marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map
+                });
+
+                latitudeElement.val(event.latLng.lat());
+                longitudeElement.val(event.latLng.lng());
+            });
+
+            $('#latitude').on('keyup', function() {
+                if (latitudeElement.val()) {
+                    const position = {
+                        lat: parseFloat(this.value),
+                        lng: parseFloat(longitudeElement.val())
+                    };
+                    setMarkerAndCenter(position);
+                }
+            });
+
+            $('#longitude').on('keyup', function() {
+                if (longitudeElement.val()) {
+                    const position = {
+                        lat: parseFloat(latitudeElement.val()),
+                        lng: parseFloat(this.value)
+                    };
+                    setMarkerAndCenter(position);
+                }
+            });
+
+            function setMarkerAndCenter(position) {
+                if (marker !== null) {
+                    marker.setMap(null);
+                }
+
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: map
+                });
+
+                map.setCenter(position);
+            }
         }
-
-        initMap('map')
-            .then(map => {
-                const latitudeElement = $('#latitude');
-                const longitudeElement = $('#longitude');
-
-                let marker = null;
-
-                map.addListener('click', function(event) {
-                    if(marker !== null) {
-                        marker.setMap(null);
-                    }
-
-                    marker. new google.maps.Marker({
-                        position: event.latLng,
-                        map: map
-                    })
-
-                    latitudeElement.val(event.latLng.lat())
-                    longitudeElement.val(event.latLng.lng())
-
-                })
-
-                $('#latitude').on('keyup', function() {
-                    if(latitudeElement.val()) {
-                        const position = { lat: parseFloat(this.value), lng: parseFloat(longitudeElement.val()) };
-
-                        marker = new google.maps.Marker({
-                            position: position,
-                            map: map,
-                        })
-
-                        map.setCenter(position)
-                    }
-                })
-
-                $('#longitude').on('keyup', function() {
-                    if(longitudeElement.val()) {
-                        const position = { lat: parseFloat(latitudeElement.val()), lng: parseFloat(this.value) };
-
-                        marker = new google.maps.Marker({
-                            position: position,
-                            map: map,
-                        })
-
-                        map.setCenter(position)
-                    }
-                })
-            })
-
     </script>
     <script type="module">
         $(() => {
