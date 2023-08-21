@@ -19,8 +19,10 @@ class Location extends Model
         'barangay_district',
         'street_name',
         'description',
-        'region',
-        'country',
+        'region_id',
+        'province_id',
+        'city_id',
+        'barangay_id',
         'latitude',
         'longitude'
     ];

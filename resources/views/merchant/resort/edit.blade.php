@@ -135,7 +135,7 @@
                     <div class="form-group">
                         <label for="">Street Number</label>
                         <div class="input-group">
-                            <input type="text" name="street_number" placeholder="Street Number" class="form-control" value="{{ $data['resort']->address->street_number }}">
+                            <input type="text" name="street_number" placeholder="Street Number" class="form-control" value="{{ $data['resort']->location->street_number }}">
                         </div>
                     </div>
                     @error('street_number')
@@ -146,7 +146,7 @@
                     <div class="form-group mt-2">
                         <label for="">Barangay District</label>
                         <div class="input-group">
-                            <input type="text" name="barangay_district" placeholder="Barangay District" class="form-control" value="{{ $data['resort']->address->barangay_district }}">
+                            <input type="text" name="barangay_district" placeholder="Barangay District" class="form-control" value="">
                         </div>
                     </div>
                     @error('barangay_district')
@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label for="">Postal Code</label>
                         <div class="input-group">
-                            <input type="text" name="postal_code" placeholder="Postal Code" class="form-control" value="{{ $data['resort']->address->postal_code }}">
+                            <input type="text" name="postal_code" placeholder="Postal Code" class="form-control" value="">
                         </div>
                     </div>
                     @error('postal_code')
@@ -170,7 +170,7 @@
                     <div class="form-group mt-2">
                         <label for="">Street Name</label>
                         <div class="input-group">
-                            <input type="text" name="street_name" placeholder="Street Name" class="form-control" value="{{ $data['resort']->address->street_name }}">
+                            <input type="text" name="street_name" placeholder="Street Name" class="form-control" value="">
                         </div>
                     </div>
                     @error('street_name')
@@ -181,7 +181,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="">Location Description</label>
-                    <textarea id="" cols="30" rows="4" class="form-control" name="location_description" placeholder="Location Description">{{ $data['resort']->address->location_description }}</textarea>
+                    <textarea id="" cols="30" rows="4" class="form-control" name="location_description" placeholder="Location Description"></textarea>
                 </div>
                 @error('location_description')
                 <div class="text-danger">

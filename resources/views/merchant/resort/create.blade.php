@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <label for="price">Resort Price <span style="color: red">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="price" placeholder="Resort Price"
+                                <input type="number" class="form-control" name="price" placeholder="Resort Price"
                                     value="{{ old('price') }}" autofocus>
                             </div>
                             @error('price')
@@ -138,12 +138,27 @@
                                 </div>
                             </div>
                             <div class="form-group mt-2">
-                                <label for="">Country</label>
-                                <select name="country" id="" class="form-select select2">
-                                    <option value="ph" disabled selected>Philippines</option>
+                                <label for="">Region</label>
+                                <select name="region_id" id="" class="form-select select2">
+                                    <option value="" selected disabled>Select Region</option>
+                                    @foreach ($data['regions'] as $region)
+                                        <option value="{{ $region->id }}" @selected(old('region_id') == $region->id )>{{ $region->description }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                            @error('country')
+                            @error('region_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <div class="form-group mt-2">
+                                <label for="">City</label>
+                                <select name="city_id" id="" class="form-select select2">
+                                    <option value="" disabled selected>Select City</option>
+                                    @foreach ($data['city'] as $city)
+                                        <option value="{{ $city->id }}">{{ $city->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('province_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                             <div class="form-group mt-2">
@@ -158,7 +173,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                            <div class="form-group mt-2">
+                            {{-- <div class="form-group mt-2">
                                 <label for="">Barangay District</label>
                                 <div class="input-group">
                                     <input type="text" name="barangay_district" placeholder="Barangay District"
@@ -169,36 +184,40 @@
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
-                            @enderror
+                            @enderror --}}
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Longitude</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="longitude" id="longitude"
-                                        placeholder="Longitude">
+                                        placeholder="Longitude" value="{{ old('longitude') }}">
                                 </div>
                             </div>
                             <div class="form-group mt-2">
-                                <label for="">Region</label>
-                                <select name="region" id="" class="form-select select2">
-                                    <option value="" selected disabled>Select Region</option>
-                                    @foreach ($data['regions'] as $region)
-                                        <option value="{{ $region->id }}">{{ $region->description }}</option>
+                                <label for="">Province</label>
+                                <select name="province_id" id="" class="form-select select2">
+                                    <option value="" disabled selected>Select Province</option>
+                                    @foreach ($data['province'] as $province)
+                                        <option value="{{ $province->id }}" @selected(old('province_id') == $province->id ) >{{ $province->description }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @error('region')
+                            @error('province_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                             <div class="form-group mt-2">
-                                <label for="">Postal Code</label>
+                                <label for="">Barangay</label>
                                 <div class="input-group">
-                                    <input type="text" name="postal_code" placeholder="Postal Code"
-                                        class="form-control" value="{{ old('postal_code') }}">
+                                    <select name="barangay_id" id="" class="form-select select2">
+                                        <option value="" selected disabled>Select Barangay</option>
+                                        @foreach ($data['barangay'] as $barangay)
+                                            <option value="{{ $barangay->id }}" @selected(old('barangay_id') == $barangay->id ) >{{ $barangay->description }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            @error('postal_code')
+                            @error('barangay_id')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>

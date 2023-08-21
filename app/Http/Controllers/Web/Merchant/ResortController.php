@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Web\Merchant;
 
 use App\Http\Requests\Web\Resort\UpdateResortRequest;
+use App\Models\Barangay;
+use App\Models\City;
+use App\Models\Province;
 use App\Models\Region;
 use App\Models\TemporaryFiles;
 use App\Models\User;
@@ -38,6 +41,9 @@ class ResortController extends Controller
         $data['amenities'] = Amenity::owned()->get();
         $data['addons'] = Addon::owned()->get();
         $data['regions'] = Region::all();
+        $data['province'] = Province::all();
+        $data['barangay'] = Barangay::take(100)->get();
+        $data['city'] = City::all();
 
         return view('merchant.resort.create', compact('data'));
     }
@@ -64,8 +70,13 @@ class ResortController extends Controller
             'street_number' => $request->street_number,
             'description' => $request->location_description,
             'street_name' => $request->street_name,
-            'postal_code' => $request->postal_code,
-            'barangay_district' => $request->barangay_district
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'region_id' => $request->region_id,
+            'barangay_id' => $request->barangay_id,
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            // 'barangay_district' => $request->barangay_district
         ]);
 
         return redirect()->route('room.create', $resort->id);
@@ -84,7 +95,7 @@ class ResortController extends Controller
      */
     public function edit(Resort $resort)
     {
-        $data['resort'] = $resort->with('address', 'addons', 'propertyType', 'amenities', 'associatedUsers')->first();
+        $data['resort'] = $resort->with('location', 'addons', 'propertyType', 'amenities', 'associatedUsers')->first();
         $data['propertyTypes'] = PropertyType::all();
         $data['subHosts'] = User::where('merchant_id', auth()->id())->get();
         $data['amenities'] = Amenity::owned()->get();

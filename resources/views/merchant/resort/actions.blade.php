@@ -38,7 +38,7 @@
 
             Swal.fire({
                 title: 'Are you sure?',
-                text: 'You want to delete this Sub-Host?',
+                text: 'You want to delete this Resort?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Delete',

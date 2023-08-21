@@ -4,18 +4,17 @@
 
 
 <div class="container-fluid card">
-    <div class="card-header row">
-        <div class="col">
-            <h4>ROOMS</h4>
-        </div>
-        <div class="col">
-        </div>
-    </div>
     <form action="{{ route('room.store', $id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <div class="card-header row">
+            <div class="col">
+                <h4>ROOMS</h4>
+            </div>
+        </div>
+
         <div class="card-body rooms-container">
-            <button type="button" class="btn btn-primary my-4" id="addRoom" style="float: left">Add Rooms</button>
-            <button type="submit" hidden id="save" class="btn btn-success my-4" id="addRoom" style="float: right">Save</button>
+                <button type="button" class="btn btn-primary my-4" id="addRoom" style="float: left">Add Rooms</button>
+                <button type="submit" hidden id="save" class="btn btn-success my-4" id="addRoom" style="float: right">Save</button>
         </div>
     </form>
 </div>
