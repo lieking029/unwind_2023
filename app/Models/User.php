@@ -85,6 +85,16 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function amenities() : HasMany
+    {
+        return $this->hasMany(Amenity::class);
+    }
+
+    public function addons() : HasMany
+    {
+        return $this->hasMany(Addon::class);
+    }
+
     public function isAdmin()
     {
         return $this->hasRole(UserTypeEnum::Admin);

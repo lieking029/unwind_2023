@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Barangay;
+use App\Models\City;
+use App\Models\Province;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\UploadController;
@@ -69,6 +72,21 @@ Route::middleware('auth')->group(function () {
         });
 
 
+
+
+        // Location Filtering
+        Route::get('regions/{region}', function($region) {
+            $province = Province::where('region_id', $region)->get();
+            return response()->json($province);
+        });
+        Route::get('provinces/{province}', function($province) {
+            $city = City::where('province_id', $province)->get();
+            return response()->json($city);
+        });
+        Route::get('cities/{city}', function($city) {
+            $barangay = Barangay::where('city_id', $city)->get();
+            return response()->json($barangay);
+        });
 
     });
 

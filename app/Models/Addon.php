@@ -39,6 +39,11 @@ class Addon extends Model
         return $this->belongsToMany(Resort::class);
     }
 
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeOwned(Builder $query) {
         $query->where('user_id', auth()->id());
     }

@@ -29,20 +29,20 @@
 @section('content')
     <div class="container-fluid card shadow-lg">
         <div class="card-header">
-            <h3>RESORT</h3>
+            <h3>Property</h3>
         </div>
         <div class="card-body">
             <form action="{{ route('resort.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="p-3">
-                        <h5>RESORT DETAILS</h5>
+                        <h5>PROPERTY DETAILS</h5>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="name">Resort Name <span style="color: red">*</span></label>
+                            <label for="name">Property Name <span style="color: red">*</span></label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" placeholder="Resort Name"
+                                <input type="text" class="form-control" name="name" placeholder="Property Name"
                                     value="{{ old('name') }}" autofocus>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                         @enderror
 
                         <div class="form-group mt-2">
-                            <label for="name">Resort Type <span style="color: red">*</span></label>
+                            <label for="name">Property Type <span style="color: red">*</span></label>
                             <select name="property_type_id" class="form-select" id="resort_type">
                                 <option value="" disabled selected>Select Resort Type</option>
                                 @foreach ($data['propertyTypes'] as $type)
@@ -69,9 +69,9 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="price">Resort Price <span style="color: red">*</span></label>
+                            <label for="price">Property Price <span style="color: red">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" name="price" placeholder="Resort Price"
+                                <input type="number" class="form-control" name="price" placeholder="Property Price"
                                     value="{{ old('price') }}" autofocus>
                             </div>
                             @error('price')
@@ -100,9 +100,9 @@
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="description">Resort Description<span style="color: red">*</span></label>
+                        <label for="description">Property Description<span style="color: red">*</span></label>
                         <textarea name="description" class="form-control" id="" cols="15" rows="5"
-                            placeholder="Resort Description">{{ old('description') }}</textarea>
+                            placeholder="Property Description">{{ old('description') }}</textarea>
                     </div>
                     @error('description')
                         <small class="text-danger">
@@ -110,7 +110,7 @@
                         </small>
                     @enderror
                     <div class="mt-3 form-group">
-                        <label>Featured Images/Videos</label>
+                        <label>Featured Images</label>
                         <div class="input-group">
                             <input type="file" class="form-control filepond" id="attachments_create"
                                 name="featured_media[]" multiple>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Region</label>
-                                <select name="region_id" id="" class="form-select select2">
+                                <select name="region_id" id="region" class="form-select select2">
                                     <option value="" selected disabled>Select Region</option>
                                     @foreach ($data['regions'] as $region)
                                         <option value="{{ $region->id }}" @selected(old('region_id') == $region->id )>{{ $region->description }}</option>
@@ -151,11 +151,8 @@
                             @enderror
                             <div class="form-group mt-2">
                                 <label for="">City</label>
-                                <select name="city_id" id="" class="form-select select2">
-                                    <option value="" disabled selected>Select City</option>
-                                    @foreach ($data['city'] as $city)
-                                        <option value="{{ $city->id }}">{{ $city->description }}</option>
-                                    @endforeach
+                                <select name="city_id" id="city" class="form-select select2">
+                                    <option value="" disabled selected>Select Province First</option>
                                 </select>
                             </div>
                             @error('province_id')
@@ -173,18 +170,6 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                            {{-- <div class="form-group mt-2">
-                                <label for="">Barangay District</label>
-                                <div class="input-group">
-                                    <input type="text" name="barangay_district" placeholder="Barangay District"
-                                        class="form-control" value="{{ old('barangay_district') }}">
-                                </div>
-                            </div>
-                            @error('barangay_district')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror --}}
                         </div>
                         <div class="col">
                             <div class="form-group">
@@ -196,11 +181,8 @@
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Province</label>
-                                <select name="province_id" id="" class="form-select select2">
-                                    <option value="" disabled selected>Select Province</option>
-                                    @foreach ($data['province'] as $province)
-                                        <option value="{{ $province->id }}" @selected(old('province_id') == $province->id ) >{{ $province->description }}</option>
-                                    @endforeach
+                                <select name="province_id" id="province" class="form-select select2">
+                                    <option value="" disabled selected>Select Region First</option>
                                 </select>
                             </div>
                             @error('province_id')
@@ -209,11 +191,8 @@
                             <div class="form-group mt-2">
                                 <label for="">Barangay</label>
                                 <div class="input-group">
-                                    <select name="barangay_id" id="" class="form-select select2">
-                                        <option value="" selected disabled>Select Barangay</option>
-                                        @foreach ($data['barangay'] as $barangay)
-                                            <option value="{{ $barangay->id }}" @selected(old('barangay_id') == $barangay->id ) >{{ $barangay->description }}</option>
-                                        @endforeach
+                                    <select name="barangay_id" id="barangay" class="form-select select2">
+                                        <option value="" selected disabled>Select City First</option>
                                     </select>
                                 </div>
                             </div>
@@ -237,18 +216,18 @@
                         </div>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="">Location Description</label>
-                        <textarea id="" cols="30" rows="4" class="form-control" name="location_description"
-                            placeholder="Location Description">{{ old('location_description') }}</textarea>
+                        <label for="">Nearest Landmark</label>
+                        <textarea id="" cols="30" rows="4" class="form-control" name="landmark"
+                            placeholder="What's the nearest landmark in your property?">{{ old('landmark') }}</textarea>
                     </div>
-                    @error('location_description')
+                    @error('landmark')
                         <div class="text-danger">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
 
-                <div class="mt-4">
+                {{-- <div class="mt-4">
                     <div class="p-3">
                         <h5>SUB-HOST</h5>
                     </div>
@@ -266,12 +245,22 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="mt-4">
                     <div class="p-3">
                         <h5>AMENITIES</h5>
                     </div>
-                    <div class="form-group">
+
+                    @foreach($data['amenities'] as $amenity)
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fas fa-swimming-pool" style="font-size: 30px"></i> <br>
+                                <label for="">Description</label>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{-- <div class="form-group">
                         <label for="">Amenities</label>
                         <select name="amenities[]" id="" class="select2 form-select" multiple>
                             <option value="" selected disabled>Select Amenity</option>
@@ -284,7 +273,7 @@
                         @error('amenities')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="mt-4">
                     <div class="p-3">
@@ -468,6 +457,83 @@
                         };
                     },
                 },
+            })
+
+            $('#region').trigger('change');
+            $('#province').trigger('change');
+            $('#city').trigger('change');
+
+            $('#province').prop('disabled', true);
+            $('#city').prop('disabled', true);
+            $('#barangay').prop('disabled', true);
+
+            $('#region').on('change', function() {
+                const regionId = $(this).val();
+
+                $('#province').empty().prop('disabled', true);
+
+                if(regionId) {
+                    $.get('/regions/' + regionId, function(data) {
+                        if(data.length) {
+                            $('#province').append('<option selected disabled value="">Select Province</option>');
+                            $.each(data, function(index, province) {
+                                $('#province').append('<option value="' + province.id + '">' + province.description + '</option>')
+                            });
+                            $('#province').prop('disabled', false);
+                        } else {
+                            $('#province').append('<option selected disabled value="">No Provinces</option>')
+                        }
+                    })
+                } else {
+                    $('#province').append('<option selected disabled value="">No Provinces</option>')
+                }
+
+            })
+
+            $('#province').on('change', function() {
+                const provinceId = $(this).val();
+
+                $('#city').empty().prop('disabled', true);
+
+                if(provinceId) {
+                    $.get('/provinces/' + provinceId, function(data) {
+                        if(data.length) {
+                            $('#city').append('<option selected disabled value="">Select City</option>');
+                            $.each(data, function(index, city) {
+                                $('#city').append('<option value="' + city.id + '">' + city.description + '</option>')
+                            });
+                            $('#city').prop('disabled', false);
+                        } else {
+                            $('#city').append('<option selected disabled value="">No City</option>')
+                        }
+                    })
+                } else {
+                    $('#city').append('<option selected disabled value="">No City</option>')
+                }
+
+            })
+
+            $('#city').on('change', function() {
+                const cityId = $(this).val();
+
+                $('#barangay').empty().prop('disabled', true);
+
+                if(cityId) {
+                    $.get('/cities/' + cityId, function(data) {
+                        if(data.length) {
+                            $('#barangay').append('<option selected disabled value="">Select Barangay</option>');
+                            $.each(data, function(index, barangay) {
+                                $('#barangay').append('<option value="' + barangay.id + '">' + barangay.description + '</option>')
+                            });
+                            $('#barangay').prop('disabled', false);
+                        } else {
+                            $('#barangay').append('<option selected disabled value="">No Barangay</option>')
+                        }
+                    })
+                } else {
+                    $('#barangay').append('<option selected disabled value="">No Barangay</option>')
+                }
+
             })
 
         })

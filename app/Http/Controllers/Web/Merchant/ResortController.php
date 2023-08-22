@@ -41,9 +41,6 @@ class ResortController extends Controller
         $data['amenities'] = Amenity::owned()->get();
         $data['addons'] = Addon::owned()->get();
         $data['regions'] = Region::all();
-        $data['province'] = Province::all();
-        $data['barangay'] = Barangay::take(100)->get();
-        $data['city'] = City::all();
 
         return view('merchant.resort.create', compact('data'));
     }
@@ -68,7 +65,7 @@ class ResortController extends Controller
 
         $resort->location()->create([
             'street_number' => $request->street_number,
-            'description' => $request->location_description,
+            'landmark' => $request->landmark,
             'street_name' => $request->street_name,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
@@ -76,7 +73,6 @@ class ResortController extends Controller
             'barangay_id' => $request->barangay_id,
             'province_id' => $request->province_id,
             'city_id' => $request->city_id,
-            // 'barangay_district' => $request->barangay_district
         ]);
 
         return redirect()->route('room.create', $resort->id);

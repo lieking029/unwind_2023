@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('resort_id')->constrained()->cascadeOnDelete();
             $table->string('street_number');
             $table->string('street_name')->nullable();
-            $table->string('description');
+            $table->string('landmark');
             $table->decimal('latitude', 11, 8);
             $table->decimal('longitude', 11, 8);
             $table->foreignId('region_id')->constrained()->cascadeOnDelete();
