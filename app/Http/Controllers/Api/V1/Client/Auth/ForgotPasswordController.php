@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Client\ForgotPasswordRequest;
 use App\Services\OtpService;
 use App\Services\SmsService;
 
@@ -16,7 +17,7 @@ class ForgotPasswordController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request) : JsonResponse
+    public function __invoke(ForgotPasswordRequest $request) : JsonResponse
     {
         $forgotUser = User::where('phone_number', $request->phone_number)->first();
         if (!$forgotUser) {

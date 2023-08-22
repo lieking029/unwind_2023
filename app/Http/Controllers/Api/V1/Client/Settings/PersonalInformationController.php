@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Client\Settings;
+namespace App\Http\Controllers\Api\V1\Client\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Client\UpdatePersonalInformationRequest;
@@ -13,7 +13,7 @@ class PersonalInformationController extends Controller
     public function __invoke(UpdatePersonalInformationRequest $request) : JsonResponse
     {
         $user = auth()->user();
-        $user->address()->upsert($request->except('full_name', 'email', 'dob'), ['user_id']);
+        $user->address()->update($request->except('full_name', 'email', 'dob'));
         
         $user->update($request->only('full_name',' email', 'dob'));
         return response()->json(UserResource::make($user), Response::HTTP_OK);
