@@ -34,9 +34,9 @@ class Addon extends Model
     ];
 
 
-    public function resort() : BelongsToMany
+    public function property() : BelongsToMany
     {
-        return $this->belongsToMany(Resort::class);
+        return $this->belongsToMany(Property::class);
     }
 
     public function user() : BelongsTo

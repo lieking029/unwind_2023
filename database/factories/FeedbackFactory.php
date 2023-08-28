@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use App\Models\Resort;
 use App\Models\Trip;
 use App\Models\User;
@@ -22,7 +23,7 @@ class FeedbackFactory extends Factory
         return [
             'feedback' => fake()->words(10, true),
             'user_id' => User::inRandomOrder()->value('id'),
-            'resort_id' => Resort::inRandomOrder()->value('id'),
+            'property_id' => Property::inRandomOrder()->value('id'),
             'trip_id' => Trip::inRandomOrder()->value('id'),
         ];
     }

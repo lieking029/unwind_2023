@@ -14,8 +14,8 @@ class PropertyType extends Model
         'name'
     ];
 
-    public function resort() : HasOne
+    public function property() : HasOne
     {
-        return $this->hasOne(Resort::class);
+        return $this->hasOne(Property::class);
     }
 }

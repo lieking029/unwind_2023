@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Resort;
+use App\Models\Property;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ class Room extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'resort_id',
+        'property_id',
         'max_guest_count',
         'bed_count',
         'bath_count',
@@ -21,9 +21,9 @@ class Room extends Model
         'room_image'
     ];
 
-    public function resort() : BelongsTo
+    public function property() : BelongsTo
     {
-        return $this->belongsTo(Resort::class);
+        return $this->belongsTo(Property::class);
     }
 
 }

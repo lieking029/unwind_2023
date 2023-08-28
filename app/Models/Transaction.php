@@ -19,7 +19,7 @@ class Transaction extends Model
         'amount_due',
         'payment_method',
         'reference_number',
-        'resort_id',
+        'property_id',
     ];
 
     protected $casts = [
@@ -35,7 +35,7 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'merchant_id');
     }
 
-    public function resort(): BelongsTo {
-        return $this->belongsTo(Resort::class);
+    public function property(): BelongsTo {
+        return $this->belongsTo(Property::class);
     }
 }

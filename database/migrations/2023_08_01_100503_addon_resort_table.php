@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('addon_resort', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resort_id')->constrained()->onDelete('cascade');
+            $table->foreignId('property_id')->constrained()->onDelete('cascade');
             $table->foreignId('addon_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

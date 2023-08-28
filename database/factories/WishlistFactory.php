@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use App\Models\Resort;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,7 +21,7 @@ class WishlistFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->value('id'),
-            'resort_id' => Resort::inRandomOrder()->value('id'),
+            'property_id' => Property::inRandomOrder()->value('id'),
         ];
     }
 }

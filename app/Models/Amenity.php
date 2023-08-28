@@ -14,16 +14,16 @@ class Amenity extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'resort_id',
+        'property_id',
         'name',
         'user_id',
         'icon                                                  '
     ];
 
 
-    public function resort() : BelongsToMany
+    public function property() : BelongsToMany
     {
-        return $this->belongsToMany(Resort::class);
+        return $this->belongsToMany(Property::class);
     }
 
     public function user() : BelongsTo

@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Property;
 use App\Models\Resort;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ResortDataTable extends DataTable
+class PropertyDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,14 +24,14 @@ class ResortDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
         ->setRowId('id')
-        ->addColumn('action', fn(Resort $resort) => view('merchant.resort.actions', compact('resort')))
+        ->addColumn('action', fn(Property $property) => view('merchant.property.actions', compact('property')))
         ->rawColumns(['actions']);
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Resort $model): QueryBuilder
+    public function query(Property $model): QueryBuilder
     {
         return $model->newQuery()->where('user_id', auth()->id());
     }
@@ -41,7 +42,7 @@ class ResortDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('resort_table')
+                    ->setTableId('property_table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -78,6 +79,6 @@ class ResortDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Resort_' . date('YmdHis');
+        return 'Property_' . date('YmdHis');
     }
 }

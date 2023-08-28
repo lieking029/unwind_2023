@@ -23,7 +23,7 @@ class VoucherController extends Controller
 
     public function show(int $resort)
     {
-        $resort_vouchers = auth()->user()->vouchers()->where(['resort_id' => $resort])->get();
+        $resort_vouchers = auth()->user()->vouchers()->where(['property_id' => $resort])->get();
         return response()->json(
             VoucherResource::collection($resort_vouchers),
             Response::HTTP_OK

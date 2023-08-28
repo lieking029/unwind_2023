@@ -13,7 +13,7 @@ class Location extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'resort_id',
+        'property_id',
         'street_number',
         'postal_code',
         'barangay_district',
@@ -28,8 +28,8 @@ class Location extends Model
     ];
 
 
-    public function resort() : BelongsTo
+    public function property() : BelongsTo
     {
-        return $this->belongsTo(Resort::class);
+        return $this->belongsTo(Property::class);
     }
 }

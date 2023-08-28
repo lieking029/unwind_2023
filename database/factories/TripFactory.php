@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use App\Models\User;
 use App\Models\Resort;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ class TripFactory extends Factory
     public function definition(): array
     {
         return [
-            'resort_id' => Resort::inRandomOrder()->value('id'),
+            'property_id' => Property::inRandomOrder()->value('id'),
             'user_id' => User::inRandomOrder()->value('id'),
             'start_date' => now()->addDay(),
             'end_date' => now()->addDays(2),

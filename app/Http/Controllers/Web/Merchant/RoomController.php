@@ -42,7 +42,7 @@ class RoomController extends Controller
             }
 
             $rooms[] = [
-                'resort_id' => $resort->id,
+                'property_id' => $resort->id,
                 'max_guest_count' => $room['max_guest_count'],
                 'bed_count' => $room['bed_count'],
                 'bath_count' => $room['bath_count'],
