@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Client\Auth;
+namespace App\Http\Controllers\Api\V1\Client\Auth;
 
 use App\Enums\TokenAbilityEnum;
 use App\Models\User;
@@ -11,7 +11,7 @@ use App\Http\Requests\Api\V1\Shared\LoginRequest;
 use App\Http\Resources\Api\V1\User\UserResource;
 use Illuminate\Http\JsonResponse;
 
-class LoginController extends Controller
+class SignInController extends Controller
 {
     public function __invoke(LoginRequest $request) : JsonResponse
     {

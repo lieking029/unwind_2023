@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Client\Settings;
+namespace App\Http\Controllers\Api\V1\Client\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Shared\ChangePasswordRequest;
@@ -14,7 +14,6 @@ class ChangePasswordController extends Controller
     public function __invoke(ChangePasswordRequest $request) : JsonResponse
     {
         $user = auth()->user();
-
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid Password'], Response::HTTP_BAD_REQUEST);
         }

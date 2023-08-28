@@ -16,7 +16,7 @@ class SocialLoginController extends Controller
      */
     public function __invoke(Request $request) : JsonResponse
     {
-        $socialExists = User::where($request->social_type. '_id', $request->sociall_id)->first();
+        $socialExists = User::where($request->social_type. '_id', $request->social_id)->first();
         if ($socialExists) {
             return response()->json([
                 'authToken' => $socialExists->createToken($request->ip())->accessToken,

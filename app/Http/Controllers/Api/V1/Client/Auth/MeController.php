@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Client\Auth;
+namespace App\Http\Controllers\Api\V1\Client\Auth;
 
 use App\Enums\TokenAbilityEnum;
 use App\Http\Controllers\Controller;
