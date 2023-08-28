@@ -16,7 +16,8 @@ class Amenity extends Model
     protected $fillable = [
         'resort_id',
         'name',
-        'user_id'
+        'user_id',
+        'icon                                                  '
     ];
 
 
