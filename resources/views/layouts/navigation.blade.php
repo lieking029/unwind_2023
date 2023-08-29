@@ -23,8 +23,8 @@
     </li>
 
     @admin
-    <li class="nav-item {{ request()->routeIs('users.merchant') ? 'active' : '' }}">
-        <a href="{{ route('users.merchant') }}" class="nav-link">
+    <li class="nav-item {{ request()->routeIs('merchant.index') ? 'active' : '' }}">
+        <a href="{{ route('merchant.index') }}" class="nav-link">
             <span class="sidebar-icon me-3">
                 <i class="fas fa-user-tie fa-fw"></i>
             </span>
@@ -69,11 +69,11 @@
         <div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
             <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="{{ route('resort.index') }}" class="nav-link">
+                    <a href="{{ route('property.index') }}" class="nav-link">
                         <span class="sidebar-icon me-3">
                             <i class="fas fa-hotel"></i>
                         </span>
-                        <span class="sidebar-text">{{ __('Resort') }}</span>
+                        <span class="sidebar-text">{{ __('Properties') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">

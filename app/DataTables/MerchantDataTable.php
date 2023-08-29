@@ -26,7 +26,7 @@ class MerchantDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            ->addColumn('action', fn(User $user) => view('admin.users.actions'))
+            ->addColumn('action', fn(User $user) => view('admin.users.actions', compact('user')))
             ->rawColumns(['actions']);
     }
 
@@ -44,7 +44,7 @@ class MerchantDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('merchant-table')
+                    ->setTableId('merchant_table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -72,8 +72,6 @@ class MerchantDataTable extends DataTable
             Column::make('phone_number'),
             Column::make('dob'),
             Column::make('email'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
             ->searchable(false)
             ->orderable(false),

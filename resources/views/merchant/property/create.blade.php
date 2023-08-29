@@ -32,7 +32,7 @@
             <h3>Property</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('resort.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="p-3">
@@ -227,38 +227,12 @@
                     @enderror
                 </div>
 
-                {{-- <div class="mt-4">
-                    <div class="p-3">
-                        <h5>SUB-HOST</h5>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Sub-Host</label>
-                        <select name="subhost_id[]" id="" class="select2 form-select" multiple>
-                            <option value="" selected disabled>Select Sub-Host</option>
-                            @foreach ($data['subHosts'] as $subHost)
-                                <option value="{{ $subHost->id }}"
-                                    {{ in_array($subHost->id, old('subhost_id', [])) ? 'selected' : '' }}>
-                                    {{ $subHost->fullname }}</option>
-                            @endforeach
-                        </select>
-                        @error('subhost_id')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div> --}}
                 <div class="mt-4">
                     <div class="p-3">
                         <h5>AMENITIES</h5>
                     </div>
 
-                    @foreach($data['amenities'] as $amenity)
-                        <div class="row">
-                            <div class="col-2">
-                                <i class="fas fa-swimming-pool" style="font-size: 30px"></i> <br>
-                                <label for="">Description</label>
-                            </div>
-                        </div>
-                    @endforeach
+                    
 
                     {{-- <div class="form-group">
                         <label for="">Amenities</label>

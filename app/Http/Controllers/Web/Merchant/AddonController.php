@@ -19,7 +19,7 @@ class AddonController extends Controller
 
         Addon::create($request->validated() + ['user_id' => auth()->id()]);
 
-        return redirect()->back();
+        return redirect()->route('addon.index');
     }
 
     public function show(Addon $addon) {

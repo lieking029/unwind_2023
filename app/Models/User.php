@@ -64,7 +64,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Resort::class, 'user_property'); // using the pivot table resort_user
     }
 
-    public function properties(): HasMany
+    public function properties   (): HasMany
     {
         return $this->hasMany(Property::class);
     }

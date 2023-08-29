@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\Web\Merchant\PropertyController;
 use App\Models\Barangay;
 use App\Models\City;
 use App\Models\Province;
@@ -8,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\UploadController;
 use App\Http\Controllers\Web\Merchant\RoomController;
 use App\Http\Controllers\Web\Merchant\AddonController;
-use App\Http\Controllers\Web\Merchant\ResortController;
+// use App\Http\Controllers\Web\Merchant\ResortController;
 use App\Http\Controllers\Web\Merchant\AmenityController;
 use App\Http\Controllers\Web\Merchant\SubhostController;
 
@@ -38,7 +40,9 @@ Route::middleware('auth')->group(function () {
 
         // Users
         Route::get('users', [UserController::class, 'index'])->name('users.index');
-        Route::get('merchants', [UserController::class, 'merchant'])->name('users.merchant');
+        Route::resource('merchant', MerchantController::class)
+            ->parameters(['merchant' => 'user'])
+            ->except('create', 'edit');
 
         Route::get('transaction', function () {
             return view('admin.transaction.index');
@@ -52,7 +56,7 @@ Route::middleware('auth')->group(function () {
         // RESOURCES
         Route::resource('amenity', AmenityController::class);
         Route::resource('addon', AddonController::class);
-        Route::resource('resort', ResortController::class);
+        Route::resource('property', PropertyController::class);
         Route::resource('subhost', SubhostController::class)
             ->parameters(['subhost' => 'user'])
             ->only('index', 'store', 'show', 'update', 'destroy');

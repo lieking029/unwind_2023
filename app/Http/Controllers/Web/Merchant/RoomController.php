@@ -52,7 +52,7 @@ class RoomController extends Controller
         }
 
         $resort->rooms()->insert($rooms);
-        return redirect()->route('resort.index');
+        return redirect()->route('property.index');
     }
 
 
@@ -107,7 +107,7 @@ class RoomController extends Controller
         }
         Room::whereIn('id', $existingRoomIds)->delete();
 
-        return redirect()->route('resort.index');
+        return redirect()->route('property.index');
     }
 
     /**

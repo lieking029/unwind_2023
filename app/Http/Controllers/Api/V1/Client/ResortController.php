@@ -16,7 +16,7 @@ class ResortController extends Controller
     public function index(): JsonResponse
     {
         $resorts = Resort::query()
-            ->with(['media', 'location', 'propertyType']) 
+            ->with(['media', 'location', 'propertyType'])
             ->withCount(['feedbacks', 'rooms'])
             ->paginate(10);
 

@@ -21,23 +21,23 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $merchants = User::role(UserTypeEnum::Merchant)->with('roles')->get();
+        // $merchants = User::role(UserTypeEnum::Merchant)->with('roles')->get();
 
-        $addons = [
-            ['name' => 'Breakfast or Meal Packages'],
-            ['name' => 'Spa Services'],
-            ['name' => 'Airport Shuttle Services'],
-            ['name' => 'Bike Rental'],
-            ['name' => 'Car Rental'],
-            ['name' => 'Tour Guides'],
-            ['name' => 'Childcare Services'],
-        ];
+        // $addons = [
+        //     ['name' => 'Breakfast or Meal Packages'],
+        //     ['name' => 'Spa Services'],
+        //     ['name' => 'Airport Shuttle Services'],
+        //     ['name' => 'Bike Rental'],
+        //     ['name' => 'Car Rental'],
+        //     ['name' => 'Tour Guides'],
+        //     ['name' => 'Childcare Services'],
+        // ];
 
-        foreach($addons as $addon) {
-            foreach($merchants as $merchant) {
-                $merchant->addons()->create($addon);
-            }
-        }
+        // foreach($addons as $addon) {
+        //     foreach($merchants as $merchant) {
+        //         $merchant->addons()->create($addon);
+        //     }
+        // }
 
     }
 
