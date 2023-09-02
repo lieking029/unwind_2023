@@ -173,18 +173,6 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                            {{-- <div class="form-group mt-2">
-                                <label for="">Barangay District</label>
-                                <div class="input-group">
-                                    <input type="text" name="barangay_district" placeholder="Barangay District"
-                                        class="form-control" value="{{ old('barangay_district') }}">
-                                </div>
-                            </div>
-                            @error('barangay_district')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror --}}
                         </div>
                         <div class="col">
                             <div class="form-group">
@@ -254,14 +242,15 @@
                     </div>
                     <div class="form-group">
                         <label for="">Sub-Host</label>
-                        <select name="subhost_id[]" id="" class="select2 form-select" multiple>
+
+                        {{-- <select name="subhost_id[]" id="" class="select2 form-select" multiple>
                             <option value="" selected disabled>Select Sub-Host</option>
                             @foreach ($data['subHosts'] as $subHost)
                                 <option value="{{ $subHost->id }}"
                                     {{ in_array($subHost->id, old('subhost_id', [])) ? 'selected' : '' }}>
                                     {{ $subHost->fullname }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('subhost_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -273,14 +262,12 @@
                     </div>
                     <div class="form-group">
                         <label for="">Amenities</label>
-                        <select name="amenities[]" id="" class="select2 form-select" multiple>
-                            <option value="" selected disabled>Select Amenity</option>
-                            @foreach ($data['amenities'] as $amenity)
-                                <option value="{{ $amenity->id }}"
-                                    {{ in_array($amenity->id, old('amenities', [])) ? 'selected' : '' }}>
-                                    {{ $amenity->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="row">
+                            <div class="card col-2 text-center py-3 me-2">
+                                <i class="fas fa-swimming-pool" style="font-size: 1.5rem;"></i>
+                                <i>Swimming Pool</i>
+                            </div>
+                        </div>
                         @error('amenities')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
