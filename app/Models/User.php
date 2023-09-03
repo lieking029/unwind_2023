@@ -61,12 +61,12 @@ class User extends Authenticatable
 
     public function associatedResorts(): BelongsToMany
     {
-        return $this->belongsToMany(Resort::class, 'user_resort'); // using the pivot table resort_user
+        return $this->belongsToMany(Resort::class, 'user_property'); // using the pivot table resort_user
     }
 
-    public function resorts(): HasMany
+    public function properties   (): HasMany
     {
-        return $this->hasMany(Resort::class);
+        return $this->hasMany(Property::class);
     }
 
     public function oneTimePasswords(): HasMany {
@@ -83,6 +83,16 @@ class User extends Authenticatable
 
     public function transactions(): HasMany {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function amenities() : HasMany
+    {
+        return $this->hasMany(Amenity::class);
+    }
+
+    public function addons() : HasMany
+    {
+        return $this->hasMany(Addon::class);
     }
 
     public function isAdmin()

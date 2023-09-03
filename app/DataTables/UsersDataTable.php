@@ -24,9 +24,9 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->setRowId('id')
-            ->addColumn('action', fn(User $user) => view('admin.users.actions'))
-            ->rawColumns(['actions']);
+            ->setRowId('id');
+            // ->addColumn('action', fn(User $user) => view('admin.users.actions'))
+            // ->rawColumns(['actions']);
     }
 
     /**
@@ -68,16 +68,14 @@ class UsersDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('fullname'),
+            Column::make('email'),
             Column::make('phone_number'),
             Column::make('dob'),
             Column::make('my_referral_code'),
             Column::make('referral_code_used'),
-            Column::make('email'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
-            Column::computed('action')
-                ->searchable(false)
-                ->orderable(false),
+            // Column::computed('action')
+            //     ->searchable(false)
+            //     ->orderable(false),
         ];
     }
 

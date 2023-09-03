@@ -21,8 +21,8 @@ class Address extends Model
     ];
 
 
-    public function resort() : BelongsTo
+    public function property() : BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Property::class);
     }
 }

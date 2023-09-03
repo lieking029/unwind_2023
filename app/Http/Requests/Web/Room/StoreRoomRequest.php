@@ -25,7 +25,7 @@ class StoreRoomRequest extends FormRequest
         return [
             'rooms' => 'required|array',
             'rooms. * .max_guest_count' => 'required|numeric',
-            'rooms. * .room_image' => ['nullable', File::image()],
+            'rooms. * .room_media' => ['required', File::image()],
             'rooms. * .bed_count' => 'required|numeric',
             'rooms. * .bath_count' => 'required|numeric',
             'rooms. * .price' => 'required',

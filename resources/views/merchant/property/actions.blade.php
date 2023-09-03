@@ -1,10 +1,10 @@
 <div class="d-flex">
-    <button type="button"  class="btn me-2 btn-primary editBtn" data-resort="{{ $resort->id }}" data-bs-toggle="modal" data-bs-target="#editResortModal"><i class="fas fa-edit"></i></button>
+    <button type="button"  class="btn me-2 btn-primary editBtn" data-property="{{ $property->id }}" data-bs-toggle="modal" data-bs-target="#editResortModal"><i class="fas fa-edit"></i></button>
 
-    <form method="POST" action="{{ route('resort.destroy', $resort->id) }}" id="deleteForm-{{ $resort->id }}">
+    <form method="POST" action="{{ route('property.destroy', $property->id) }}" id="deleteForm-{{ $property->id }}">
         @csrf
         @method('DELETE')
-        <button class="btn btn-danger" type="button" data-resort="{{ $resort->id }}" onclick="confirmDelete(event, {{ $resort->id }})">
+        <button class="btn btn-danger" type="button" data-property="{{ $property->id }}" onclick="confirmDelete(event, {{ $property->id }})">
             <i class="fas fa-trash"></i>
         </button>
     </form>
@@ -19,10 +19,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="">
-                        <a href="{{ route('resort.edit', $resort->id) }}" class="btn btn-primary p-3 text-white" style="width: 100%; font-weight: 600">Edit Resort Details</a>
+                        <a href="{{ route('property.edit', $property->id) }}" class="btn btn-primary p-3 text-white" style="width: 100%; font-weight: 600">Edit Resort Details</a>
                     </div>
                     <div class="mt-2">
-                        <a href="{{ route('room.edit', $resort->id) }}" class="btn btn-info p-3 text-white" style="width: 100%; font-weight: 600">Edit / Add Rooms</a>
+                        <a href="{{ route('room.edit', $property->id) }}" class="btn btn-info p-3 text-white" style="width: 100%; font-weight: 600">Edit / Add Rooms</a>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -4,7 +4,7 @@
 <div class="main py-4">
     <div class="card  border-0 shadow table-wrapper table-responsive">
         <div class="card-header" style="padding-bottom: 5px">
-            <h5 class="h5">{{ __('Merchants') }}</h5>
+            <h5 class="h5">{{ __('Users') }}</h5>
         </div>
 
         <div class="card-body">

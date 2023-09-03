@@ -13,6 +13,6 @@ class AmenitySeeder extends Seeder
      */
     public function run(): void
     {
-        Amenity::factory(30)->create();
+        // Amenity::factory(30)->create();
     }
 }

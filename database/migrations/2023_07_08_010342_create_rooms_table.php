@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resort_id')->constrained()->cascadeOnDelete();
-            $table->string('room_image')->nullable();
+            $table->foreignId('property_id')->constrained()->cascadeOnDelete();
+            // $table->string('room_media')->nullable();
             $table->integer('max_guest_count');
             $table->integer('bed_count');
             $table->integer('bath_count');
+            $table->string('room_media')->nullable();
             $table->softDeletes();
             $table->unsignedFloat('price', 10, 2);
             $table->timestamps();

@@ -36,11 +36,11 @@
             </div>
             <div class="form-group">
                 <label for="">Image of the Room</label>
-                <input type="file" name="rooms[${roomLength}][room_image]" class="form-control">
+                <input type="file" name="rooms[${roomLength}][room_media]" class="form-control">
             </div>
             <div class="col mt-3">
                 <div class="form-group">
-                    <label for="">Max Guest(s) Count</label>
+                <label for="">Max Guest(s) Count</label>
                     <div class="input-group">
                         <input type="text" name="rooms[${roomLength}][max_guest_count]" class="form-control" placeholder="Max Guest Count">
                     </div>

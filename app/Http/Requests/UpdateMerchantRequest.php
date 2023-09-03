@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Client\Wishlist;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreWishlistRequest extends FormRequest
+class UpdateMerchantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,11 @@ class StoreWishlistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property_id' => ['required', 'exists:properties,id'],
+            'fullname' => ['required', 'string', 'max:50'],
+            'phone_number' => ['required', 'string'],
+            'dob' => ['required', 'date'],
+            'email' => ['required', 'string', 'email'],
+            'password' => ['nullable', 'string', 'min:6'],
         ];
     }
 }

@@ -27,8 +27,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{ route('subhost.store') }}" method="POST">
+                        @csrf
                         <div class="modal-body">
-                            @csrf
                             <div class="container-fluid row">
                                     <div class="form-group">
                                         <label for="">Fullname</label>

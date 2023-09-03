@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedFloat('amount_due');
             $table->string('payment_method');
             $table->string('reference_number')->unique();
-            $table->foreignId('resort_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('property_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

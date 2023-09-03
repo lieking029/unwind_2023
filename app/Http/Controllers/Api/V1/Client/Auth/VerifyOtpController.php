@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Api\V1\Client\Auth;
 
 use App\Enums\TokenAbilityEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Shared\VerifyOtpRequest;
 use App\Http\Resources\Api\V1\User\UserResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class VerifyForgotPasswordController extends Controller
+class VerifyOtpController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request) : JsonResponse
+    public function __invoke(VerifyOtpRequest $request) : JsonResponse
     {
         $user = auth()->user();
 

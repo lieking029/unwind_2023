@@ -29,7 +29,7 @@ class WishlistController extends Controller
     public function store(StoreWishlistRequest $request)
     {
         $wishlist = auth()->users()->wishlists()
-            ->updateOrCreate($request->validated(), ['resort_id']);
+            ->updateOrCreate($request->validated(), ['property_id']);
 
         return response()->json(WishlistResource::make($wishlist), Response::HTTP_CREATED);
     }

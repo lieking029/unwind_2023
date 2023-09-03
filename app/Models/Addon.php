@@ -30,16 +30,23 @@ class Addon extends Model
 
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
+        'price'
     ];
 
 
-    public function resort() : BelongsToMany
+    public function property() : BelongsToMany
     {
-        return $this->belongsToMany(Resort::class);
+        return $this->belongsToMany(Property::class);
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeOwned(Builder $query) {
-        $query->where('user_id', auth()->id());
+        $query->where('user_id', auth()->id())
+            ->orWhere('user_id', null);
     }
 }

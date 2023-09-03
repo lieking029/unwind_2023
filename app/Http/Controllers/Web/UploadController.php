@@ -17,7 +17,7 @@ class UploadController extends Controller
         if ($request->has('featured_media')) {
             $file = $request->file('featured_media');
             $fileName = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
+            $folder =  uniqid() . '-' . now()->timestamp;
             $file->storeAs('temporary/' . $folder, $fileName);
 
             TemporaryFiles::create(['folder' => $folder, 'file_name' => $fileName]);

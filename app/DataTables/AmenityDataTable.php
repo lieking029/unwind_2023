@@ -31,7 +31,7 @@ class AmenityDataTable extends DataTable
      */
     public function query(Amenity $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', auth()->id());
+        return $model->newQuery()->where('user_id', auth()->id())->orWhere('user_id', null);
     }
 
     /**
@@ -65,6 +65,7 @@ class AmenityDataTable extends DataTable
 
             Column::make('id'),
             Column::make('name'),
+            Column::make('icons'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false),

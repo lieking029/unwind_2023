@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class Resort extends Model implements HasMedia
+class Property extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
@@ -66,7 +66,7 @@ class Resort extends Model implements HasMedia
 
     public function associatedUsers(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_resort'); // using the pivot table resort_user
+        return $this->belongsToMany(User::class, 'user_property'); // using the pivot table resort_user
     }
 
     public function users(): BelongsTo

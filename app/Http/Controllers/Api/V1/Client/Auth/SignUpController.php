@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Client\Auth;
+namespace App\Http\Controllers\Api\V1\Client\Auth;
 
 use App\Enums\TokenAbilityEnum;
 use App\Models\User;
@@ -12,7 +12,7 @@ use App\Http\Resources\Api\V1\User\UserResource;
 use App\Http\Requests\Api\V1\Client\StoreUserRequest;
 use Illuminate\Http\JsonResponse;
 
-class RegisterController extends Controller
+class SignUpController extends Controller
 {
     public function __invoke(StoreUserRequest $request): JsonResponse
     {

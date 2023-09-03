@@ -16,7 +16,7 @@ class Trip extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'resort_id',
+        'property_id',
         'user_id',
         'start_date',
         'end_date',

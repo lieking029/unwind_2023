@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('flash::message')
+
 <div class="container-fluid card">
     <div class="card-header row">
         <div class="col">
@@ -23,7 +25,7 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="amenityModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="amenityModalLabel">Add your own Amenity</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('amenity.store') }}" method="POST">
@@ -33,6 +35,12 @@
                         <label for="">Name</label>
                         <div class="input-group">
                             <input type="text" placeholder="Name" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="">Price</label>
+                        <div class="input-group">
+                            <input type="number" placeholder="Price" name="price" class="form-control">
                         </div>
                     </div>
                 </div>

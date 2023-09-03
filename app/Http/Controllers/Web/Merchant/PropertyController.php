@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\Web\Merchant;
 
-use App\Http\Requests\Web\Resort\UpdateResortRequest;
+use App\DataTables\PropertyDataTable;
+use App\Http\Requests\Web\Resort\StorePropertyRequest;
+use App\Http\Requests\Web\Resort\UpdatePropertyRequest;
 use App\Models\Barangay;
 use App\Models\City;
+use App\Models\Property;
 use App\Models\Province;
 use App\Models\Region;
 use App\Models\TemporaryFiles;
 use App\Models\User;
 use App\Models\Addon;
-use App\Models\Resort;
 use App\Models\Amenity;
 use Illuminate\View\View;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
-use App\DataTables\ResortDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Web\Resort\StoreResortRequest;
 
-class ResortController extends Controller
+class PropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ResortDataTable $dataTable)
+    public function index(PropertyDataTable $dataTable)
     {
 
-        return $dataTable->render('merchant.resort.index');
+        return $dataTable->render('merchant.property.index');
     }
 
     /**
@@ -41,34 +41,35 @@ class ResortController extends Controller
         $data['amenities'] = Amenity::owned()->get();
         $data['addons'] = Addon::owned()->get();
         $data['regions'] = Region::all();
-        $data['province'] = Province::all();
-        $data['barangay'] = Barangay::take(100)->get();
-        $data['city'] = City::all();
 
-        return view('merchant.resort.create', compact('data'));
+        return view('merchant.property.create', compact('data'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreResortRequest $request): RedirectResponse
+    public function store(StorePropertyRequest $request): RedirectResponse
     {
-
-        $resort = auth()->user()->resorts()->create(
+        $property = auth()->user()->properties()->create(
             $request->except('featured_media', 'street_number', 'location_description', 'street_name', 'postal_code', 'barangay_district', 'subhost_id', 'amenities', 'addons')
         );
 
-        $this->setResortMedia($request->featured_media, $resort);
+        $this->setPropertyMedia($request->featured_media, $property);
 
-        $resort->associatedUsers()->attach($request->input('subhost_id'));
+        $property->associatedUsers()->attach($request->input('subhost_id'));
 
-        $resort->amenities()->attach($request->input('amenities'));
+        $property->amenities()->attach($request->input('amenities'));
 
-        $resort->addons()->attach($request->input('addons'));
+        $addonId = $request->input('addons');
+        $price = $request->input('addons_price');
 
-        $resort->location()->create([
+        foreach ($addonId as $index => $id) {
+            $property->addons()->attach($id, ['price' => $price[$index]]);
+        }
+
+        $property->location()->create([
             'street_number' => $request->street_number,
-            'description' => $request->location_description,
+            'landmark' => $request->landmark,
             'street_name' => $request->street_name,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
@@ -76,10 +77,9 @@ class ResortController extends Controller
             'barangay_id' => $request->barangay_id,
             'province_id' => $request->province_id,
             'city_id' => $request->city_id,
-            // 'barangay_district' => $request->barangay_district
         ]);
 
-        return redirect()->route('room.create', $resort->id);
+        return redirect()->route('room.create', $property->id);
     }
 
     /**
@@ -93,43 +93,43 @@ class ResortController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Resort $resort)
+    public function edit(Property $property)
     {
-        $data['resort'] = $resort->with('location', 'addons', 'propertyType', 'amenities', 'associatedUsers')->first();
+        $data['property'] = $property->with('location', 'addons', 'propertyType', 'amenities', 'associatedUsers')->first();
         $data['propertyTypes'] = PropertyType::all();
         $data['subHosts'] = User::where('merchant_id', auth()->id())->get();
         $data['amenities'] = Amenity::owned()->get();
         $data['addons'] = Addon::owned()->get();
 
-        return view('merchant.resort.edit', compact('data', 'resort'));
+        return view('merchant.property.edit', compact('data', 'property'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateResortRequest $request, Resort $resort)
+    public function update(UpdatePropertyRequest $request, Property $property)
     {
-        $resort->update($request->only('name', 'price', 'visibility', 'property_type_id', 'description'));
+        $property->update($request->only('name', 'price', 'visibility', 'property_type_id', 'description'));
 
         $subhostId = $request->input('subhost_id');
-        $resort->associatedUsers()->sync($subhostId);
+        $property->associatedUsers()->sync($subhostId);
 
-        $resort->amenities()->sync($request->input('amenities'));
+        $property->amenities()->sync($request->input('amenities'));
 
-        $resort->address()->update($request->only('street_number', 'location_description', 'street_name', 'postal_code', 'barangay_district'));
+        $property->address()->update($request->only('street_number', 'location_description', 'street_name', 'postal_code', 'barangay_district'));
 
-        $resort->addons()->sync($request->input('addons'));
+        $property->addons()->sync($request->input('addons'));
 
-        return redirect()->route('resort.index');
+        return redirect()->route('property.index');
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Resort $resort): RedirectResponse
+    public function destroy(Property $property): RedirectResponse
     {
-        $resort->delete();
+        $property->delete();
         return redirect()->back();
     }
 
@@ -137,7 +137,7 @@ class ResortController extends Controller
      *  Private function for featured_media upload
      */
 
-    private function setResortMedia(?array $attachments, Resort $resort)
+    private function setPropertyMedia(?array $attachments, Property $property)
     {
         if ($attachments == null) {
             return;
@@ -152,7 +152,7 @@ class ResortController extends Controller
                 $filePath = storage_path('app/temporary/' . $file->folder . '/' . $file->file_name);
 
                 if (file_exists($filePath)) {
-                    $resort->addMedia($filePath)->toMediaCollection('featured_media');
+                    $property->addMedia($filePath)->toMediaCollection('featured_media' , 'property_fs');
                     rmdir(storage_path('app/temporary/' . $file->folder));
                 }
             } else {

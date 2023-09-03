@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use App\Models\Resort;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -26,7 +27,7 @@ class TransactionFactory extends Factory
             'amount_due' => random_int(100, 999),
             'paymnet_method' => 'Bank',
             'reference_number' => Str::random(16),
-            'resort_id' => Resort::inRandomOrdeR()->value('id'),
+            'property_id' => Property::inRandomOrdeR()->value('id'),
         ];
     }
 }

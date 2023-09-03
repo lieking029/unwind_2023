@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Merchant;
 
 use App\Http\Requests\Web\Room\UpdateRoomRequest;
+use App\Models\Property;
 use App\Models\Room;
 use App\Models\Resort;
 use Illuminate\Http\Request;
@@ -30,29 +31,25 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRoomRequest $request, Resort $resort)
+    public function store(StoreRoomRequest $request, Property $property)
     {
         $rooms = [];
 
         foreach ($request->rooms as $room) {
             $imagePath = null; // Define imagePath with a default value
 
-            if ($request->hasFile('room_image')) {
-                $imagePath = $request->file('room_image')->store('resort/' . $resort->id . '/rooms', 'public');
-            }
-
             $rooms[] = [
-                'resort_id' => $resort->id,
+                'property_id' => $property->id,
                 'max_guest_count' => $room['max_guest_count'],
                 'bed_count' => $room['bed_count'],
                 'bath_count' => $room['bath_count'],
                 'price' => $room['price'],
-                'room_image' => $imagePath ? 'storage/' . $imagePath : null,
+                'room_media' => $room['room_media']->store('rooms', 'public'),
             ];
         }
 
-        $resort->rooms()->insert($rooms);
-        return redirect()->route('resort.index');
+        $property->rooms()->insert($rooms);
+        return redirect()->route('property.index');
     }
 
 
@@ -67,9 +64,9 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Resort $resort)
+    public function edit(Property $property)
     {
-        $data['resort'] = $resort->with('rooms')->first();
+        $data['resort'] = $property->with('rooms')->first();
 
         return view('merchant.room.edit', compact('data'));
     }
@@ -77,9 +74,9 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoomRequest $request, Resort $resort)
+    public function update(UpdateRoomRequest $request, Property $property)
     {
-        $existingRoomIds = $resort->rooms->pluck('id')->toArray();
+        $existingRoomIds = $property->rooms->pluck('id')->toArray();
 
         foreach ($request->input('rooms', []) as $roomData) {
             $roomId = $roomData['id'] ?? null;
@@ -102,12 +99,12 @@ class RoomController extends Controller
                     'price' => $roomData['price'],
                 ]);
 
-                $resort->rooms()->save($room);
+                $property->rooms()->save($room);
             }
         }
         Room::whereIn('id', $existingRoomIds)->delete();
 
-        return redirect()->route('resort.index');
+        return redirect()->route('property.index');
     }
 
     /**
